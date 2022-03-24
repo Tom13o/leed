@@ -1,22 +1,14 @@
-import logo from './logo.svg';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
+      <link href='https://fonts.googleapis.com/css?family=Prompt' rel='stylesheet'></link>
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <div className="hero">
+          <h1 className="title">Leed.</h1>
+          <h2 className="subtitle">Making you, you.</h2>
+        </div>
       </header>
     </div>
   );
