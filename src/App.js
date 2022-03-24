@@ -1,16 +1,20 @@
+import React from 'react'
 import './App.css';
+import { Route, Routes } from 'react-router-dom'
+import LandingPage from './pages/LandingPage';
+import HomePage from './pages/HomePage';
+import PrivateRoute from './pages/PrivateRoute';
+import Login from './pages/Login';
 
 function App() {
+  
   return (
-    <div className="App">
-      <link href='https://fonts.googleapis.com/css?family=Prompt' rel='stylesheet'></link>
-      <header className="App-header">
-        <div className="hero">
-          <h1 className="title">Leed.</h1>
-          <h2 className="subtitle">Making you, you.</h2>
-        </div>
-      </header>
-    </div>
+    <Routes>
+      <Route exact path="/" element={<LandingPage />} />
+      <Route path="/contact" element={<LandingPage />} />
+      <Route path="/home" element={<PrivateRoute><HomePage /></PrivateRoute>} />
+      <Route path="/login" element={<Login />} />
+    </Routes>
   );
 }
 
