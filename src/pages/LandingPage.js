@@ -1,20 +1,23 @@
-import React from 'react';
+import React from 'react'
+import { Route, Routes } from 'react-router-dom'
 
 export default function LandingPage() {
     return(
         <>
-            
-            
+            <div>
+                <input type="button" value="Button 1" />
+                <input type="button" value="Button 2" />
+                <input type="button" value="Button 3" />
+                <input type="button" value="Button 4" />
+                <input type="button" value="Button 5" />
+            </div>
             <p>LandingPage</p>
             {/* the login button should show as "enter" if logged */}
             <p>needs to be a switch</p>
-            <div>
-                <input type="button">Test Button 1</input>
-                <input type="button">Test Button 2</input>
-                <input type="button">Test Button 3</input>
-                <input type="button">Test Button 4</input>
-                <input type="button">Test Button 5</input>
-            </div>
+            <Routes>
+                
+            </Routes>
+
         </>
     )
 }
