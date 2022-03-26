@@ -21,6 +21,9 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+if (app) {
+  
+}
 
 ReactDOM.render(
   <BrowserRouter>
