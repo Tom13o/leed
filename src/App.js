@@ -11,14 +11,17 @@ import LandingPage from './pages/LandingPage';
 function App() {
   
   return (
-    <Routes>
-      <Route path="/" element={<LandingContainer />}>
-        <Route exact path="/" element={<LandingPage />} />
-        <Route path="contact" element={<Contact />} />
-      </Route>
-      <Route path="/home" element={<PrivateRoute><HomePage /></PrivateRoute>} />
-      <Route path="/login" element={<Login />} />
-    </Routes>
+    <>
+      <link href='https://fonts.googleapis.com/css?family=Prompt' rel='stylesheet'></link>
+      <Routes>
+        <Route path="/" element={<LandingContainer />}>
+          <Route exact path="/" element={<LandingPage />} />
+          <Route path="contact" element={<Contact />} />
+        </Route>
+        <Route path="/home" element={<PrivateRoute><HomePage /></PrivateRoute>} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+    </>
   );
 }
 

@@ -1,25 +1,63 @@
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.hero {
+  background-color: #e6e6e6;
+  padding: 5% 0 10% 5%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.hero-subtitle {
+  margin-left: 20%;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.hero-header {
+  font: 60pt "Prompt";
+  margin: 0;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.hero-header-highlight {
+  font-weight: bold;
+  background-image: linear-gradient(
+    to bottom right,
+    #5b9dff 0%, #9800df 100%
+  );
+  background-size: 200% 200%;
+  background-clip: text;
+  color: transparent;
+  animation: movingGradient 3.5s linear infinite alternate;
+}
+
+@keyframes movingGradient {
+  from { background-position: 0 0; }
+  to   { background-position: 100% 100%; }
+}
+
+.featureslist {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  flex-direction: row;
+  width: 98%;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin: 1%;
 }
 
-.App-link {
-  color: #61dafb;
+.feature {
+  background-color: #9800df;
+  box-shadow: 0 0 10px #b8b8b8;
+  width: max(20%, 200px);
+  border-radius: 25px;
+  padding: 25px;
+}
+
+.feature-image {
+  width: 100%;
+}
+
+.feature-title {
+  font-size: min(40px, 5vw);
+  margin: 0;
+}
+
+.feature-desc {
+  font-size: 20px;
 }

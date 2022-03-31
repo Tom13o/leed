@@ -17,6 +17,9 @@ export default function LandingContainer() {
                 <li><LoginButton /></li>
             </ul>
             <Outlet />
+            <div className="footer">
+                Footer
+            </div>
         </>
     )
 }
