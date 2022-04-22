@@ -21,9 +21,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-if (app) {
-  
-}
+export default app;
 
 ReactDOM.render(
   <BrowserRouter>

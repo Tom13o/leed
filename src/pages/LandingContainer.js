@@ -1,11 +1,12 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import { Outlet, Link } from 'react-router-dom'
+import { AuthContext } from "../auth.js";
 
-function LoginButton() {
-    var a = true
+function SignUpButton() {
+    const { currentUser } = useContext(AuthContext);
     return (
-        <Link to={a ? '/home' : '/login'}>{a ? 'Home' : 'Login'}</Link>
-    )
+        <Link to={!!currentUser ? '/home' : '/signup'}>{!!currentUser ? 'Home' : 'Sign Up'}</Link>
+    ) //FIXME: maybe something other than Home? maybe 'enter' or something?
 }
 
 export default function LandingContainer() {
@@ -14,7 +15,7 @@ export default function LandingContainer() {
             <ul>
                 <li><Link to="/">Leed</Link></li>
                 <li><Link to="/contact">Contact</Link></li>
-                <li><LoginButton /></li>
+                <li><SignUpButton /></li>
             </ul>
             <Outlet />
             <div className="footer">
