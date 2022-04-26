@@ -14,7 +14,6 @@ function App() {
   
   return (
     <>
-      <link href='https://fonts.googleapis.com/css?family=Prompt' rel='stylesheet'></link>
       <AuthProvider>
         <Routes>
           <Route path="/" element={<LandingContainer />}>
