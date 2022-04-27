@@ -8,20 +8,26 @@ import { db } from "../index";
 export default function SignUp() {
     const handleSignUp = async event => {
         event.preventDefault();
-        const { email, password } = event.target.elements;
+        const { username, email, password } = event.target.elements;
         const auth = getAuth();
         // TODO: don't allow signing up if one of the inputs is empty
-        try {
-            // TODO: handle error when account already exists
-            await createUserWithEmailAndPassword(auth, email.value, password.value)
-                .then(async function(response) {
-                    console.log(response);
-                    await setDoc(doc(db, "publicusers", response.user.uid), {
-                        test: "test"
-                    });
-                })
-        } catch (error) {
-            alert(error + "among us");
+        if (!checkUser(username.value)) {
+            try {
+                // TODO: handle error when account already exists
+                await createUserWithEmailAndPassword(auth, email.value, password.value)
+                    .then(async function(response) {
+                        await setDoc(doc(db, "privateusers", response.user.uid), {
+                            username: username.value
+                        });
+                        await setDoc(doc(db, "publicusers", username.value), {
+                            uid: response.user.uid
+                        });
+                    })
+            } catch (error) {
+                alert(error);
+            }
+        } else {
+            alert("username taken"); // TODO: change this
         }
     };
     
@@ -31,6 +37,7 @@ export default function SignUp() {
         await getDoc(doc(db, "publicusers/" + username))
             .then(function (response) {
                     document.getElementById("exists").textContent = response.exists() ? "Sorry, but this username is taken." : "Username is free to use!";
+                    return response.exists() ? true : false
                 }
             )
     }
@@ -41,7 +48,6 @@ export default function SignUp() {
 
     const up = event => {
         clearTimeout(typingTimeout);
-        console.log(event);
         const username = event.target.value;
         if (username !== "") {
             typingTimeout = setTimeout(checkUser, 1000, username);
@@ -50,6 +56,8 @@ export default function SignUp() {
 
     const { currentUser } = useContext(AuthContext);
     if ( !!currentUser ) { return <Navigate to="/home" />} // FIXME: maybe I don't want this happening? should you be able to make an account while already logged in? what happens?
+
+    //TODO: username case
 
     return (
         // FIXME: maybe dont want to go back to / from signup? nav(-1)?? vv
@@ -61,7 +69,7 @@ export default function SignUp() {
             <form onSubmit={handleSignUp}>
                 <label>
                     Username:
-                    <input name="username" type="text" placeholder="Username" onKeyDown={down} onKeyUp={up} />
+                    <input name="username" type="text" placeholder="Username" onKeyDown={() => { down(); this.value = this.value.toLowerCase() }} onKeyUp={up} />
                 </label>
                 <p id="exists"></p>
                 <br />
