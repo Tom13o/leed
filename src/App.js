@@ -8,13 +8,13 @@ import Contact from './pages/Contact';
 import SignUp from './pages/SignUp';
 import LandingPage from './pages/LandingPage';
 import Login from "./pages/Login";
+import Profile from './pages/Profile';
 import { AuthProvider } from './auth';
 
 function App() {
   
   return (
     <>
-      <link href='https://fonts.googleapis.com/css?family=Prompt' rel='stylesheet'></link>
       <AuthProvider>
         <Routes>
           <Route path="/" element={<LandingContainer />}>
@@ -24,6 +24,7 @@ function App() {
           <Route path="/home" element={<PrivateRoute><HomePage /></PrivateRoute>} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/user/:username" element={<Profile />} />
         </Routes>
       </AuthProvider>
     </>
