@@ -11,10 +11,12 @@ export default function SignUp() {
         const { username, email, password, firstname, lastname } = event.target.elements;
         const auth = getAuth();
         // TODO: don't allow signing up if one of the inputs is empty
-        if (checkUser(username.value) === false) {
-            try {
-                // TODO: handle error when account already exists
-                await createUserWithEmailAndPassword(auth, email.value, password.value)
+        checkUser(username.value).then(async function(value) {
+            console.log(value);
+            if (value === false) {
+                try {
+                    // TODO: handle error when account already exists
+                    await createUserWithEmailAndPassword(auth, email.value, password.value)
                     .then(async function(response) {
                         await setDoc(doc(db, "privateusers", response.user.uid), {
                             username: username.value,
@@ -26,23 +28,27 @@ export default function SignUp() {
                             lastname: lastname.value
                         });
                     })
-            } catch (error) {
-                alert(error);
+                } catch (error) {
+                    alert(error);
+                }
+            } else {
+                alert("username taken"); // TODO: change this
             }
-        } else {
-            alert("username taken"); // TODO: change this
-        }
-    };
+        })
+        };
     
     var typingTimeout;
 
     async function checkUser(username) {
-        await getDoc(doc(db, "publicusers/" + username))
-            .then(function (response) {
-                    document.getElementById("exists").textContent = response.exists() ? "Sorry, but this username is taken." : "Username is free to use!";
-                    return response.exists() ? true : false
-                }
-            )
+        return new Promise(async function(resolve) {
+            await getDoc(doc(db, "publicusers/" + username))
+                .then(function (response) {
+                        document.getElementById("exists").textContent = response.exists() ? "Sorry, but this username is taken." : "Username is free to use!";
+                        console.log(response.exists() + "incheckuser");
+                        resolve(response.exists())
+                    }
+                )
+            });
     }
 
     function down() {
@@ -57,7 +63,6 @@ export default function SignUp() {
             typingTimeout = setTimeout(checkUser, 1000, username);
         }
         event.target.value = event.target.value.toLowerCase()
-        console.log(event)
         event.target.setSelectionRange(p, p);
     }
 
