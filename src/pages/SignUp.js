@@ -8,19 +8,22 @@ import { db } from "../index";
 export default function SignUp() {
     const handleSignUp = async event => {
         event.preventDefault();
-        const { username, email, password } = event.target.elements;
+        const { username, email, password, firstname, lastname } = event.target.elements;
         const auth = getAuth();
         // TODO: don't allow signing up if one of the inputs is empty
-        if (!checkUser(username.value)) {
+        if (checkUser(username.value) === false) {
             try {
                 // TODO: handle error when account already exists
                 await createUserWithEmailAndPassword(auth, email.value, password.value)
                     .then(async function(response) {
                         await setDoc(doc(db, "privateusers", response.user.uid), {
-                            username: username.value
+                            username: username.value,
+                            email: email.value
                         });
                         await setDoc(doc(db, "publicusers", username.value), {
-                            uid: response.user.uid
+                            uid: response.user.uid,
+                            firstname: firstname.value,
+                            lastname: lastname.value
                         });
                     })
             } catch (error) {
@@ -48,10 +51,14 @@ export default function SignUp() {
 
     const up = event => {
         clearTimeout(typingTimeout);
+        const p = event.target.selectionStart;
         const username = event.target.value;
         if (username !== "") {
             typingTimeout = setTimeout(checkUser, 1000, username);
         }
+        event.target.value = event.target.value.toLowerCase()
+        console.log(event)
+        event.target.setSelectionRange(p, p);
     }
 
     const { currentUser } = useContext(AuthContext);
@@ -62,6 +69,7 @@ export default function SignUp() {
     return (
         // FIXME: maybe dont want to go back to / from signup? nav(-1)?? vv
         // TODO: make this a table maybe? so textboxes are aligned? this'll change anyway
+        // TODO: make component for cleaner code
         <>
             <Link to="/">Back</Link> 
             <p>Sign Up</p>
@@ -69,9 +77,18 @@ export default function SignUp() {
             <form onSubmit={handleSignUp}>
                 <label>
                     Username:
-                    <input name="username" type="text" placeholder="Username" onKeyDown={() => { down(); this.value = this.value.toLowerCase() }} onKeyUp={up} />
+                    <input name="username" type="text" placeholder="@username" onKeyDown={down} onKeyUp={up} style={{textTransform: "lowercase"}} />
                 </label>
-                <p id="exists"></p>
+                <p id="exists" style={{display: 'inline'}}></p>
+                <br />
+                <label>
+                    First:
+                    <input type="text" name="firstname" />
+                </label>
+                <label>
+                    Last:
+                    <input type="text" name="lastname" />
+                </label>
                 <br />
                 <label>
                     Email: 
