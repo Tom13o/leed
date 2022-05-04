@@ -7,6 +7,7 @@ import reportWebVitals from './reportWebVitals';
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -17,13 +18,15 @@ const firebaseConfig = {
   projectId: "leed-d9196",
   storageBucket: "leed-d9196.appspot.com",
   messagingSenderId: "213981652184",
-  appId: "1:213981652184:web:11a8aab7b7d2ed39a863ad"
+  appId: "1:213981652184:web:11a8aab7b7d2ed39a863ad",
+  measurementId: "G-W8B9SDR13F"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-export { app, db };
+const analytics = getAnalytics(app);
+export { app, db, analytics };
 
 ReactDOM.render(
   <BrowserRouter>

@@ -14,15 +14,13 @@ export default function HomePage() {
         signOut(auth); //FIXME: isn't this a terrible way to handle this? try?
         nav("/"); //FIXME: i guess this could also be back to the login page? something to think about
     }
-
-    useEffect(() => {
-        async function getData() { //eslint-disable-line no-unused-vars
-            await getDoc(doc(db, "privateusers/" + currentUser.uid)).then(function (response) {
-                if (response.exists()) {
-                    setUserPrivDoc(response.data());
-                }
-            })
-        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(async function () {
+        await getDoc(doc(db, "privateusers/" + currentUser.uid)).then(function (response) {
+            if (response.exists()) {
+                setUserPrivDoc(response.data());
+            }
+        })
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     
