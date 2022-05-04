@@ -35,7 +35,7 @@ export default function SignUp() {
                 alert("username taken"); // TODO: change this
             }
         })
-        };
+    };
     
     var typingTimeout;
 

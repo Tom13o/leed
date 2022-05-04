@@ -18,7 +18,7 @@ export default function Profile() {
     //FIXME: is the above username call necessary?
 
     return (
-        <>            
+        <>  
             {checkUsername === true &&
                 <>
                 <p>This user exists.</p>
