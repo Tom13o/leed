@@ -2,6 +2,8 @@ import React, {useContext} from 'react'
 import { Link, Navigate } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { AuthContext } from "../auth.js";
+import { logEvent } from 'firebase/analytics';
+import { analytics } from '../index.js';
 // TODO: make login and signup the same page? component within container??
 
 export default function Login() {
@@ -11,7 +13,10 @@ export default function Login() {
         const auth = getAuth();
         // TODO: don't allow logging in if one of the inputs is empty
         try {
-            await signInWithEmailAndPassword(auth, email.value, password.value);
+            await signInWithEmailAndPassword(auth, email.value, password.value)
+            .then(function(response) {
+                logEvent(analytics, "login", { method: response.user.providerId})
+            })
         } catch (error) {
             alert(error);
         }

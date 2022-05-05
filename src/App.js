@@ -10,6 +10,8 @@ import LandingPage from './pages/LandingPage';
 import Login from "./pages/Login";
 import Profile from './pages/Profile';
 import { AuthProvider } from './auth';
+import Blog from './pages/Blog';
+import { UserProvider } from './pages/UserProvider';
 
 function App() {
   
@@ -24,7 +26,10 @@ function App() {
           <Route path="/home" element={<PrivateRoute><HomePage /></PrivateRoute>} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/user/:username" element={<Profile />} />
+          <Route path="/user/:username" element={<UserProvider />} >
+              <Route path="/user/:username" element={<Profile />} />
+              <Route path="/user/:username/blog" element={<Blog />} />
+          </Route>
         </Routes>
       </AuthProvider>
     </>

@@ -3,7 +3,8 @@ import { Link, Navigate } from 'react-router-dom'
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { AuthContext } from "../auth.js";
 import { doc, setDoc, getDoc } from "firebase/firestore";
-import { db } from "../index";
+import { db, analytics } from "../index";
+import { logEvent } from 'firebase/analytics';
 
 export default function SignUp() {
     const handleSignUp = async event => {
@@ -18,6 +19,7 @@ export default function SignUp() {
                     // TODO: handle error when account already exists
                     await createUserWithEmailAndPassword(auth, email.value, password.value)
                     .then(async function(response) {
+                        logEvent(analytics, "sign_up", {method: response.user.providerId });
                         await setDoc(doc(db, "privateusers", response.user.uid), {
                             username: username.value,
                             email: email.value
