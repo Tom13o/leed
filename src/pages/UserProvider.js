@@ -13,10 +13,10 @@ export const UserProvider = () => {
     useEffect(() => {
         getDoc(doc(db, "publicusers/" + username))
         .then(function (response) {
+            setUserExists(response.exists());
             var data = response.data();
             data.username = username;
             setUserInfo(data);
-            setUserExists(response.exists())
         });
     }, [username])
 

@@ -1,9 +1,9 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { UserContext } from './UserProvider'
 
 export default function Profile() {
 
-    const {userExists, userInfo} = useContext(UserContext)
+    const {userExists, userInfo} = useContext(UserContext);
 
     return (
         <>  

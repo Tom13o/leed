@@ -12,6 +12,7 @@ import Profile from './pages/Profile';
 import { AuthProvider } from './auth';
 import Blog from './pages/Blog';
 import { UserProvider } from './pages/UserProvider';
+import UserBlog from './pages/UserBlog';
 
 function App() {
   
@@ -26,9 +27,10 @@ function App() {
           <Route path="/home" element={<PrivateRoute><HomePage /></PrivateRoute>} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/blog" element={<Blog />} />
           <Route path="/user/:username" element={<UserProvider />} >
               <Route path="/user/:username" element={<Profile />} />
-              <Route path="/user/:username/blog" element={<Blog />} />
+              <Route path="/user/:username/blog" element={<UserBlog />} />
           </Route>
         </Routes>
       </AuthProvider>
